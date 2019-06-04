@@ -1,0 +1,62 @@
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Tab 1 Header</a></li>
+    <li><a href="#tabs-2">Tab 2 Header</a></li>
+    <li><a href="#tabs-3">Tab 3 Header</a></li>
+  </ul>
+  <div id="tabs-1">
+    <p>Tab1 content.</p>
+  </div>
+  <div id="tabs-2">
+    <p>Tab2 content.</p>
+  </div>
+  <div id="tabs-3">
+    <p>Tab3 content.</p>
+  </div>
+    
+    <input type="button" class="btn btn-primary" id="prevBtn" value="Prev" />
+    <input type="button" class="btn btn-primary" id="nextBtn" value="Next" />
+    
+</div>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+	$(document).ready(function(){
+    $("#tabs").tabs();
+    
+    $("#prevBtn").bind("click", prevOfferTab);
+    $("#nextBtn").bind("click", nextOfferTab);
+});
+
+function getSelectedTabIndex(change)  {
+	var $tabs = $('#tabs').tabs();
+	var selected = $tabs.tabs('option', 'selected') + change;
+
+	if (selected == 0) {
+	$("#prevBtn").hide();
+	}
+	else {
+	$("#prevBtn").show();
+	}
+
+	var tabsCount = this.$('#tabs').tabs('length') -1;
+	if (selected == tabsCount) {
+	$("#nextBtn").hide();
+	}
+	else {
+	$("#nextBtn").show();
+	}
+
+	return selected;
+}
+
+function nextOfferTab()  {
+    console.log('nxt');
+	var newTabIndex = parseInt(getSelectedTabIndex(1));
+	$('#tabs').tabs('select', newTabIndex);
+}
+
+function prevOfferTab()  {
+	var newTabIndex = parseInt(getSelectedTabIndex(-1));
+	$('#tabs').tabs('select', newTabIndex);
+}
+</script>
